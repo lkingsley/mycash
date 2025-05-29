@@ -29,7 +29,7 @@
     </form>
     <ul>
     {% for t in transactions %}
-        <li>{{t.get_day()}} ${{t.amount}}</li>
+        <li>{{t.date[8:]}} ${{t.amount}}</li>
     {% endfor %}
     </ul>
 </body>
