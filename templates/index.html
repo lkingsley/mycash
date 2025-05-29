@@ -30,8 +30,10 @@
         <button type="submit">Save</button>
     </form>
     <br>
+    <ul>
     {% for t in transactions %}
-    <p>${{t.amount}} | {{t.date}}</p>
+        <li>${{t.amount}} | {{t.date}}</li>
     {% endfor %}
+    </ul>
 </body>
 </html>
