@@ -20,16 +20,21 @@
         <input class="form-control mb-3" type="number" name="amount" id="amount" required>
         <label class="form-label" for="date">Date</label>
         <input class="form-control mb-3" type="date" name="date" id="date" required>
-        <label class="form-label" for="method"></label>
+        <label class="form-label" for="method">Method</label>
         <select class="form-control mb-3" name="method" id="method" required>
             <option value="cash">Cash</option>
             <option value="deposit">Deposit</option>
         </select>
         <button class="btn btn-secondary" type="submit">Save</button>
     </form>
+    <p>Income: ${{total_income}} | Spend ${{total_spend}}</p>
     <ul>
-    {% for t in transactions %}
-        <li>{{t.date[8:]}} ${{t.amount}}</li>
+    {% for i in transactions %}
+        <li>
+            <span {% if i.type == "spend" %} class="text-danger" {% endif %}>
+            {{i.date[8:]}} ${{i.amount}}
+            </span>
+        </li>
     {% endfor %}
     </ul>
 </body>
