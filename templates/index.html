@@ -31,16 +31,18 @@
             <div>
                 <button class="btn btn-secondary" type="submit">Save</button>
             </div>
-            
         </form>
         <div>
-            <p>Income: ${{total_income}} | Spend ${{total_spend}}</p>
-            <ul>
+            <p>
+                <span class="me-4">INCOME <span class="text-success">${{total_income}}</span></span>
+                <span class="me-4 text-secondary">|</span>
+                <span>SPEND <span class="text-danger">${{total_spend}}</span></span>
+            </p>
+            <ul class="list-group list-group-flush">
                 {% for i in transactions %}
-                <li>
-                    <span {% if i.type=="spend" %} class="text-danger" {% endif %}>
-                        {{i.date[8:]}} ${{i.amount}}
-                    </span>
+                <li class="list-group-item">
+                    <span class="me-5">{{i.date[8:]}}</span>
+                    <span {% if i.type == "spend" %} class="text-danger" {% endif %}>${{i.amount}}</span>
                 </li>
                 {% endfor %}
             </ul>
