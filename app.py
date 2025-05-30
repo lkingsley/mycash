@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy import desc, select
 from model.base import Base
-from model.transact import Transact
+from model.transaction import Transaction
 
 INCOME = "income"
 SPEND = "spend"
@@ -22,7 +22,7 @@ def incomes():
     total_income = 0
     total_spend = 0
     transactions = []
-    query_result = db.session.execute(select(Transact).order_by(desc(Transact.date))).scalars()
+    query_result = db.session.execute(select(Transaction).order_by(desc(Transaction.date))).scalars()
     
     for i in query_result:
         transactions.append(i)
@@ -40,7 +40,7 @@ def transactions():
     date = request.form["date"]
     
     #TODO:validate fields
-    transaction = Transact(amount=amount,method=method,date=date, type=transaction_type)
+    transaction = Transaction(amount=amount,method=method,date=date, type=transaction_type)
     try:
         db.session.add(transaction)
         db.session.commit()

@@ -1,5 +1,10 @@
-class Transaction:
-    def __init__(self, amount, method, date):
-        self.amount = amount
-        self.date = date
-        self.method = method
+from sqlalchemy.orm import Mapped, mapped_column
+from model.base import Base
+
+class Transaction(Base):
+    __tablename__ = "transaction"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    amount: Mapped[int] = mapped_column(nullable=False)
+    method: Mapped[str] = mapped_column(nullable=False)
+    date: Mapped[str] = mapped_column(nullable=False)
+    type: Mapped[str] = mapped_column(nullable=False)
