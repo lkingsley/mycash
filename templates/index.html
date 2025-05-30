@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mycash</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
 </head>
-
 <body>
-    <form action="/transactions" method="post" class="mb-4">
-        <label class="form-label" for="type">Type</label>
-        <select class="form-control mb-3" name="type" id="type" required>
-            <option value="income">Income</option>
-            <option value="spend">Spend</option>
-        </select>
-        <label class="form-label" for="amount">Amount</label>
-        <input class="form-control mb-3" type="number" name="amount" id="amount" required>
-        <label class="form-label" for="date">Date</label>
-        <input class="form-control mb-3" type="date" name="date" id="date" required>
-        <label class="form-label" for="method">Method</label>
-        <select class="form-control mb-3" name="method" id="method" required>
-            <option value="cash">Cash</option>
-            <option value="deposit">Deposit</option>
-        </select>
-        <button class="btn btn-secondary" type="submit">Save</button>
-    </form>
-    <p>Income: ${{total_income}} | Spend ${{total_spend}}</p>
-    <ul>
-    {% for i in transactions %}
-        <li>
-            <span {% if i.type == "spend" %} class="text-danger" {% endif %}>
-            {{i.date[8:]}} ${{i.amount}}
-            </span>
-        </li>
-    {% endfor %}
-    </ul>
+    <div class="m-2">
+        <form action="/transactions" method="post" class="mb-4">
+            <label class="form-label" for="type">Type</label>
+            <select class="form-control mb-3" name="type" id="type" required>
+                <option id="income" value="income">Income</option>
+                <option id="spend" value="spend">Spend</option>
+            </select>
+            <label class="form-label" for="amount">Amount</label>
+            <input class="form-control mb-3" type="number" pattern="[0-9]" name="amount" id="amount" required>
+            <label class="form-label" for="date">Date</label>
+            <input class="form-control mb-3" type="date" name="date" id="date" required>
+            <label class="form-label" for="method">Method</label>
+            <select class="form-control mb-3" name="method" id="method" required>
+                <option value="cash">Cash</option>
+                <option value="deposit">Card</option>
+                <option value="deposit">Transfer</option>
+            </select>
+            <div>
+                <button class="btn btn-secondary" type="submit">Save</button>
+            </div>
+            
+        </form>
+        <div>
+            <p>Income: ${{total_income}} | Spend ${{total_spend}}</p>
+            <ul>
+                {% for i in transactions %}
+                <li>
+                    <span {% if i.type=="spend" %} class="text-danger" {% endif %}>
+                        {{i.date[8:]}} ${{i.amount}}
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
