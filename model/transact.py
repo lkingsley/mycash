@@ -1,0 +1,10 @@
+from sqlalchemy.orm import Mapped, mapped_column
+from model.base import Base
+
+class Transact(Base):
+    __tablename__ = "transaction"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    amount: Mapped[int] = mapped_column(nullable=False)
+    method: Mapped[str] = mapped_column(nullable=False)
+    date: Mapped[str] = mapped_column(nullable=False)
+    type: Mapped[str] = mapped_column(nullable=False)

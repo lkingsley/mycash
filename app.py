@@ -1,26 +1,17 @@
-from flask import Flask, redirect, request, render_template
+from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy import desc, select
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from model.base import Base
+from model.transact import Transact
 
 INCOME = "income"
 SPEND = "spend"
+DATABASE_URI = "sqlite:///test.db"
 
 app = Flask(__name__)
-class Base(DeclarativeBase):
-    pass
-
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
 db = SQLAlchemy(model_class=Base)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
 db.init_app(app)
-
-class Transact(db.Model):
-    id: Mapped[int] = mapped_column(primary_key=True)
-    amount: Mapped[int] = mapped_column(nullable=False)
-    method: Mapped[str] = mapped_column(nullable=False)
-    date: Mapped[str] = mapped_column(nullable=False)
-    type: Mapped[str] = mapped_column(nullable=False)
 
 with app.app_context():
     db.create_all()
