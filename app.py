@@ -36,7 +36,7 @@ with app.app_context():
     db.create_all()
 
 @app.route("/")
-def incomes():
+def get_transactions():
     #TODO: check this: request.args.get("")
     total_income = 0
     total_spend = 0
@@ -55,22 +55,26 @@ def incomes():
             total_income += i.amount
         else:
             total_spend += i.amount
+
     return render_template("index.html", transactions=transactions, total_income=total_income, total_spend=total_spend, months=months, years=years)
 
 @app.route("/transactions", methods=["POST"])
-def transactions():
+def post_transaction():
     transaction_type = request.form["type"]
     amount = request.form["amount"]
     method = request.form["method"]
     date = request.form["date"]
+    description = request.form["description"]
     
+    print(description)
     #TODO:validate fields
-    transaction = Transaction(amount=amount,method=method,date=date, type=transaction_type)
+    transaction = Transaction(amount=amount,method=method,date=date, type=transaction_type, description=description)
     try:
         db.session.add(transaction)
         db.session.commit()
     except Exception:
         #TODO: Send error message
+        print("HANDLE ERROR: *********")
         pass
 
     return redirect("/")
