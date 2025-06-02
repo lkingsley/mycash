@@ -34,9 +34,25 @@
         </form>
         <div>
             <p>
-                <span class="me-4">INCOME <span class="text-success">${{total_income}}</span></span>
-                <span class="me-4 text-secondary">|</span>
-                <span>SPEND <span class="text-danger">${{total_spend}}</span></span>
+                <span class="me-3">INCOME <span class="text-success">${{total_income}}</span></span>
+                <span class="me-3 text-secondary">|</span>
+                <span class="me-5">SPEND <span class="text-danger">${{total_spend}}</span></span>
+                <span class="me-2">
+                    <label for="month">Month:</label>
+                    <select style="text-transform: capitalize;" name="month" id="month">
+                        {% for m in months %}
+                        <option id="i" value="{{m.id}}">{{m.name}}</option>
+                        {% endfor %}
+                    </select>
+                </span>
+                <span>
+                    <label for="year">Year:</label>
+                    <select name="year" id="year">
+                        {% for y in years %}
+                        <option value="">{{y}}</option>
+                        {% endfor %}
+                    </select>
+                </span>
             </p>
             <ul class="list-group list-group-flush">
                 {% for i in transactions %}
