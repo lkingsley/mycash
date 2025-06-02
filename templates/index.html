@@ -11,7 +11,7 @@
         crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="m-2">
+    <div class="container">
         <form action="/transactions" method="post" class="mb-4">
             <label class="form-label" for="type">Type</label>
             <select class="form-control mb-3" name="type" id="type" required>
@@ -59,8 +59,11 @@
             <ul class="list-group list-group-flush">
                 {% for i in transactions %}
                 <li class="list-group-item">
-                    <span class="me-5">{{i.date[8:]}}</span>
-                    <span {% if i.type == "spend" %} class="text-danger" {% endif %}>${{i.amount}}</span>
+                    <span class="text-secondary me-1">{{i.date}}</span>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-uppercase me-5">{{i.description}}</span>
+                        <span {% if i.type == "spend" %} class="text-danger" {% endif %}>${{i.amount}}</span>
+                    </div>
                 </li>
                 {% endfor %}
             </ul>
