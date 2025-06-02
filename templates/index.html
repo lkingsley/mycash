@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <form action="/transactions" method="post" class="mb-4">
+        <form action="/transactions" method="post" class="mb-5">
             <label class="form-label" for="type">Type</label>
             <select class="form-control mb-3" name="type" id="type" required>
                 <option id="income" value="income">Income</option>
@@ -30,15 +30,12 @@
             </select>
             <label class="form-label" for="description">Description</label>
             <input class="form-control mb-3" type="text" id="description" name="description">
-            <div>
-                <button class="btn btn-secondary" type="submit">Save</button>
+            <div class="d-grid">
+                <button class="btn btn-secondary btn-lg" type="submit">Save</button>
             </div>
         </form>
         <div>
-            <p>
-                <span class="me-3">INCOME <span class="text-success">${{total_income}}</span></span>
-                <span class="me-3 text-secondary">|</span>
-                <span class="me-5">SPEND <span class="text-danger">${{total_spend}}</span></span>
+            <p class="mt-4">
                 <span class="me-2">
                     <label for="month">Month:</label>
                     <select style="text-transform: capitalize;" name="month" id="month">
@@ -55,6 +52,11 @@
                         {% endfor %}
                     </select>
                 </span>
+            </p>
+            <p class="mt-4">
+                <span class="me-3">INCOME <span class="text-success">${{total_income}}</span></span>
+                <span class="me-3 text-secondary">|</span>
+                <span class="me-5">SPEND <span class="text-danger">${{total_spend}}</span></span>
             </p>
             <ul class="list-group list-group-flush">
                 {% for i in transactions %}
