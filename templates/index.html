@@ -2,43 +2,7 @@
 
 {% block content %}
 <div class="mt-5">
-    <form action="/transactions" method="post" class="mb-5">
-        <div class="row mb-4">
-            <div class="col form-group">
-                <label class="form-label" for="type">Type</label>
-                <select class="form-control form-control-lg" name="type" id="type" required>
-                    <option id="income" value="income">Income</option>
-                    <option id="spend" value="spend">Spend</option>
-                </select>
-            </div>
-            <div class="col">
-                <label class="form-label" for="method">Method</label>
-                <select class="form-control form-control-lg" name="method" id="method" required>
-                    <option value="cash">Cash</option>
-                    <option value="deposit">Card</option>
-                    <option value="deposit">Transfer</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col mb-4">
-                <label class="form-label" for="amount">Amount</label>
-                <input class="form-control form-control-lg text-center" placeholder="$0.00" type="number"
-                    inputmode="numeric" pattern="[0-9]" name="amount" id="amount" required>
-            </div>
-            <div class="col mb-4">
-                <label class="form-label" for="date">Date</label>
-                <input class="form-control form-control-lg" type="date" name="date" id="date" required>
-            </div>
-        </div>
-        <div class="mb-4">
-            <label class="form-label" for="description">Description</label>
-            <input class="form-control form-control-lg" type="text" id="description" name="description">
-        </div>
-        <div class="d-grid">
-            <button class="btn btn-secondary btn-lg" type="submit">Save</button>
-        </div>
-    </form>
+    <h2>Transactions</h2>
     <div name="detail" id="detail">
         <p class="mt-4">
             <span class="me-2">
