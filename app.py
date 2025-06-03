@@ -62,27 +62,33 @@ def get_transactions():
 def login():
     #TODO: Implement this
     if request.method == "POST":
-        return 
+        username = request.form["username"]
+        passwd = request.form["passwd"]
+        print(username, passwd)
+        return f"{username} | {passwd}"
     else:
         return render_template("auth/login.html")
 
-@app.route("/transactions", methods=["POST"])
+@app.route("/create", methods=["GET","POST"])
 def post_transaction():
-    transaction_type = request.form["type"]
-    amount = request.form["amount"]
-    method = request.form["method"]
-    date = request.form["date"]
-    description = request.form["description"]
+    if request.method == "GET":
+        return render_template("transactions/create.html")
+    else:
+        transaction_type = request.form["type"]
+        amount = request.form["amount"]
+        method = request.form["method"]
+        date = request.form["date"]
+        description = request.form["description"]
     
-    print(description)
-    #TODO:validate fields
-    transaction = Transaction(amount=amount,method=method,date=date, type=transaction_type, description=description)
-    try:
-        db.session.add(transaction)
-        db.session.commit()
-    except Exception:
-        #TODO: Send error message
-        print("HANDLE ERROR: *********")
-        pass
+        print(description)
+        #TODO:validate fields
+        transaction = Transaction(amount=amount,method=method,date=date, type=transaction_type, description=description)
+        try:
+            db.session.add(transaction)
+            db.session.commit()
+        except Exception:
+            #TODO: Send error message
+            print("HANDLE ERROR: *********")
+            pass
 
     return redirect("/")
