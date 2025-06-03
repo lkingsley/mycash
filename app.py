@@ -58,6 +58,14 @@ def get_transactions():
 
     return render_template("index.html", transactions=transactions, total_income=total_income, total_spend=total_spend, months=months, years=years)
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    #TODO: Implement this
+    if request.method == "POST":
+        return 
+    else:
+        return render_template("auth/login.html")
+
 @app.route("/transactions", methods=["POST"])
 def post_transaction():
     transaction_type = request.form["type"]

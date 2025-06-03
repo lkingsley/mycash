@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form class="mt-5">
+    <h2 class="mb-4">Login</h2>
+    <div class="mb-4">
+      <label class="form-label" for="username">Username</label>
+      <input class="form-control form-control-lg" type="text" name="username" id="username" required>
+    </div>
+    <div class="mb-4">
+      <label class="form-label" for="passwd">Password</label>
+      <input class="form-control form-control-lg" type="text" name="passwd" name="passwd" required>
+    </div>
+    <div class="d-grid">
+      <button class="btn btn-secondary btn-lg">Login</button>
+    </div>
+  </form>
+{% endblock %}
