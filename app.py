@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy 
-from sqlalchemy import desc, select
+from sqlalchemy import desc, select, exc
 from model.base import Base
 from model.transaction import Transaction
 import datetime
@@ -36,14 +36,15 @@ with app.app_context():
     db.create_all()
 
 @app.route("/")
-def get_transactions():
+def list_transactions():
     #TODO: check this: request.args.get("")
     total_income = 0
     total_spend = 0
     transactions = []
     actual_year = datetime.datetime.now().year
     years = [actual_year]
-    query_result = db.session.execute(select(Transaction).order_by(desc(Transaction.date))).scalars()
+    query_result = db.session.execute(select(Transaction)
+        .order_by(desc(Transaction.date))).scalars()
     
     for i in range(9):
         actual_year -= 1
@@ -56,7 +57,10 @@ def get_transactions():
         else:
             total_spend += i.amount
 
-    return render_template("index.html", transactions=transactions, total_income=total_income, total_spend=total_spend, months=months, years=years)
+    return render_template(
+        "index.html", transactions=transactions, total_income=total_income,
+        total_spend=total_spend, months=months, years=years
+    )
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -69,8 +73,8 @@ def login():
     else:
         return render_template("auth/login.html")
 
-@app.route("/create", methods=["GET","POST"])
-def post_transaction():
+@app.route("/create", methods=["GET", "POST"])
+def create_transaction():
     if request.method == "GET":
         return render_template("transactions/create.html")
     else:
@@ -82,7 +86,10 @@ def post_transaction():
     
         print(description)
         #TODO:validate fields
-        transaction = Transaction(amount=amount,method=method,date=date, type=transaction_type, description=description)
+        transaction = Transaction(
+            amount=amount, method=method, date=date,
+            type=transaction_type, description=description
+        )
         try:
             db.session.add(transaction)
             db.session.commit()
@@ -92,3 +99,38 @@ def post_transaction():
             pass
 
     return redirect("/")
+
+@app.route("/<int:id>/edit", methods=["GET", "POST"])
+def edit_transaction(id):
+    try:
+        transaction = db.session.execute(select(Transaction)
+            .filter_by(id=id)).scalar_one()
+        
+        if request.method == "GET":
+            return render_template("transactions/edit.html", g=transaction)
+        else:
+            transaction.amount = request.form["amount"]
+            transaction.date = request.form["date"]
+            transaction.type = request.form["type"]
+            transaction.method = request.form["method"]
+            transaction.description = request.form["description"]
+            db.session.commit()
+            return redirect("/")
+    except exc.NoResultFound:
+        #TODO:implement something here
+        return f"transaction {id} not found"
+        
+@app.route("/<int:id>/delete", methods=["GET", "POST"])
+def delete_transaction(id):
+    if request.method == "GET":
+        return f"<p>Proceed deleting transaction {id}?</p> \
+        <form method=\"post\"> \
+        <button formaction=\"/{id}/delete\" type=\"submit\">Yes</button> \
+        <button formaction=\"/\" formmethod=\"get\" type=\"submit\">No</button> \
+        </div> \
+        </form>"
+    elif request.method == "POST":
+        transaction = db.get_or_404(Transaction, id)
+        db.session.delete(transaction)
+        db.session.commit()
+        return redirect("/")
