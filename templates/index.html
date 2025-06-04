@@ -8,9 +8,18 @@
             <span class="me-2">
                 <label for="month">Month:</label>
                 <select style="text-transform: capitalize;" name="month" id="month">
-                    {% for m in months %}
-                    <option id="i" value="{{m.id}}">{{m.name}}</option>
-                    {% endfor %}
+                    <option id="1" value="1">january</option>
+                    <option id="2" value="2">february</option>
+                    <option id="3" value="3">march</option>
+                    <option id="4" value="4">april</option>
+                    <option id="5" value="5">may</option>
+                    <option id="6" value="6">june</option>
+                    <option id="7" value="7">july</option>
+                    <option id="8" value="8">august</option>
+                    <option id="9" value="9">september</option>
+                    <option id="10" value="10">october</option>
+                    <option id="11" value="11">november</option>
+                    <option id="12" value="12">december</option>
                 </select>
             </span>
             <span>
@@ -33,6 +42,7 @@
                 <span class="text-secondary me-1">{{i.date}}</span>
                 <div class="d-flex justify-content-between">
                     <span class="text-uppercase me-5">{{i.description}}</span>
+                    <a href="/{{i.id}}/edit">edit</a>
                     <span {% if i.type=="spend" %} class="text-danger" {% endif %}>${{i.amount}}</span>
                 </div>
             </li>
