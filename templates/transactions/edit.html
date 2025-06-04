@@ -41,6 +41,7 @@
     <input class="form-control form-control-lg" id="description" name="description" type="text" value="{{g.description}}">
   </div>
   <div class="d-grid">
+    <!-- TODO: Warning prompt before deleting resource-->
     <button class="btn btn-outline-danger btn-lg mb-3" formaction="/{{g.id}}/delete" name="delete" value="delete">Delete</button>
     <button class="btn btn-secondary btn-lg" name="update" value="update" type="submit">Save</button>
   </div>
