@@ -10,3 +10,7 @@ class Transaction(Base):
     date: Mapped[str] = mapped_column(nullable=False)
     type: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=True)
+
+    def __str__(self):
+        return f"<Transaction id={self.id}, type={self.type}, amount={self.amount}> \
+            method={self.method}, date={self.date}, description={self.description}"
