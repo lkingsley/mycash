@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="mt-4" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create</li>
+  </ol>
+</nav>
 <form class="mt-5" method="post">
   <div class="row mb-4">
     <div class="col form-group">
@@ -13,8 +19,8 @@
     <div class="col">
       <label class="form-label" for="method">Method</label>
       <select class="form-control form-control-lg" name="method" id="method" required>
-        <option value="cash">Cash</option>
         <option value="deposit">Card</option>
+        <option value="cash">Cash</option>
         <option value="deposit">Transfer</option>
       </select>
     </div>
@@ -22,8 +28,8 @@
   <div class="row">
     <div class="col mb-4">
       <label class="form-label" for="amount">Amount</label>
-      <input class="form-control form-control-lg text-center" placeholder="$0.00" type="number" inputmode="numeric"
-        pattern="[0-9]" name="amount" id="amount" required>
+      <input class="form-control form-control-lg text-center" placeholder="$0.00" type="text" inputmode="numeric"
+        pattern="[0-9]\.?"  name="amount" id="amount" required>
     </div>
     <div class="col mb-4">
       <label class="form-label" for="date">Date</label>
